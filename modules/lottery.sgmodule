@@ -1,10 +1,10 @@
-#!name=彩票信息
+#!name=彩票查询
 #!desc=双色球 + 大乐透每日通知
 #!author=xinbin
 #!system=ios
 
 [Script]
-每日AI彩票推荐 = type=cron,cronexp=*/2 * * * *,wake-system=1,timeout=20,script-path=https://raw.githubusercontent.com/xinbinhan/surge-script/main/scripts/lottery_notify.js
+彩票查询 = type=cron,cronexp=*/2 * * * *,wake-system=1,timeout=20,script-path=https://raw.githubusercontent.com/xinbinhan/surge-script/main/scripts/lottery_notify.js
 
 [MITM]
 hostname = %APPEND%
