@@ -4,7 +4,7 @@
 #!system=ios
 
 [Script]
-每日AI彩票推荐 = type=cron,cronexp=*/2 * * * *,wake-system=1,timeout=20,script-path=https://raw.githubusercontent.com/xinbinhan/surge-script/refs/heads/main/scripts/lottery_notify.js
+每日AI彩票推荐 = type=cron,cronexp=*/2 * * * *,wake-system=1,timeout=20,script-path=https://raw.githubusercontent.com/xinbinhan/surge-script/main/scripts/lottery_notify.js
 
 [MITM]
 hostname = %APPEND%
