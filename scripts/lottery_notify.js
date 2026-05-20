@@ -50,23 +50,17 @@ const date =
   "/" +
   pad(now.getDate());
 
+
 // 通知内容
-const title = "🎰 今日 AI 彩票推荐";
+const title = "🎰 今日中奖彩票号码";
 
-const subtitle = `${date} 每日随机号码`;
+// 副标题（双色球）
+const subtitle =
+`双色球 🔴 ${ssqRed} + 🔵 ${ssqBlue}`;
 
+// 正文（大乐透）
 const body =
-`【双色球】
-
-🔴 ${ssqRed}
-🔵 ${ssqBlue}
-
-━━━━━━━━━━━━
-
-【大乐透】
-
-🟠 ${dltFront}
-🔵 ${dltBack}
+`大乐透 🟠 ${dltFront} + 🔵 ${dltBack}
 
 ━━━━━━━━━━━━
 
@@ -80,3 +74,4 @@ $notification.post(
 );
 
 $done();
+
