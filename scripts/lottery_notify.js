@@ -1,77 +1,66 @@
-// 双色球 + 大乐透 AI 推荐
+// 真实彩票开奖结果查询
 // Surge / Loon / QX 通用
 
-function rand(min, max) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
+const url = "https://api.vvhan.com/api/caipiao";
 
-function pad(n) {
-  return n < 10 ? "0" + n : n;
-}
+$httpClient.get(url, function(error, response, data) {
 
-// 随机不重复号码
-function uniqueNumbers(count, min, max) {
-  let arr = [];
-
-  while (arr.length < count) {
-    let n = rand(min, max);
-
-    if (!arr.includes(n)) {
-      arr.push(n);
-    }
+  if (error) {
+    $notification.post(
+      "🎰 彩票开奖结果查询",
+      "获取失败",
+      String(error)
+    );
+    $done();
+    return;
   }
 
-  return arr.sort((a, b) => a - b);
-}
+  try {
 
-// 双色球
-const ssqRed = uniqueNumbers(6, 1, 33)
-  .map(pad)
-  .join(" ");
+    const json = JSON.parse(data);
 
-const ssqBlue = pad(rand(1, 16));
+    // 双色球
+    const ssq = json.data.ssq;
 
-// 大乐透
-const dltFront = uniqueNumbers(5, 1, 35)
-  .map(pad)
-  .join(" ");
+    // 大乐透
+    const dlt = json.data.dlt;
 
-const dltBack = uniqueNumbers(2, 1, 12)
-  .map(pad)
-  .join(" ");
+    const title = "🎰 今日开奖结果";
 
-// 日期
-const now = new Date();
+    const subtitle =
+`双色球 第${ssq.code}期`;
 
-const date =
-  now.getFullYear() +
-  "/" +
-  pad(now.getMonth() + 1) +
-  "/" +
-  pad(now.getDate());
-
-
-// 通知内容
-const title = "🎰 今日中奖彩票号码";
-
-// 副标题（双色球）
-const subtitle =
-`双色球 🔴 ${ssqRed} + 🔵 ${ssqBlue}`;
-
-// 正文（大乐透）
-const body =
-`大乐透 🟠 ${dltFront} + 🔵 ${dltBack}
+    const body =
+`🔴 ${ssq.red}
+🔵 ${ssq.blue}
 
 ━━━━━━━━━━━━
 
-🤖 AI随机生成
-🍀 理性购彩`;
+大乐透 第${dlt.code}期
 
-$notification.post(
-  title,
-  subtitle,
-  body
-);
+🟠 ${dlt.front}
+🔵 ${dlt.back}
 
-$done();
+━━━━━━━━━━━━
 
+📅 开奖日期：${ssq.date}`;
+
+    $notification.post(
+      title,
+      subtitle,
+      body
+    );
+
+  } catch(e) {
+
+    $notification.post(
+      "🎰 彩票开奖结果查询",
+      "解析失败",
+      String(e)
+    );
+
+  }
+
+  $done();
+
+});
