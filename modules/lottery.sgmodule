@@ -1,0 +1,10 @@
+#!name=每日AI彩票推荐
+#!desc=双色球 + 大乐透 AI随机号码每日通知
+#!author=xinbin
+#!system=ios
+
+[Script]
+每日AI彩票推荐 = type=cron,cronexp=0 10 * * *,wake-system=1,timeout=20,script-path=https://raw.githubusercontent.com/你的用户名/surge-script/main/scripts/lottery_notify.js
+
+[MITM]
+hostname = %APPEND%
